@@ -29,8 +29,8 @@ save('F0_PVT.mat','PVT_outmat');
 save('F0_E.mat','E_outmat');
 
 clr = ['r' 'g' 'b' 'y' 'k'];
-for i = 1:51:10
-    scatter3(PVT_outmat(i:i+10,1),PVT_outmat(i:i+10,2),PVT_outmat(i:i+10,3),15,clr(1+(i-1)/10));
+for i = 0:50:10
+    scatter3(PVT_outmat(i:i+10,1),PVT_outmat(i:i+10,2),PVT_outmat(i:i+10,3),5,clr(1/10));
     hold on;
 end
 
