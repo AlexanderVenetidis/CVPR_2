@@ -1,4 +1,4 @@
-load("F0_PVT.mat");
+load("F1_PVT.mat");
 
 % Get cov matrix, etc.
 C = cov(PVT_outmat);
