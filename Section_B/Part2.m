@@ -1,4 +1,5 @@
-load("F0_E.mat");
+load("F1_E.mat");
+load("F1_E_labels.mat");
 
 % Normalize
 E_norm = (E_outmat-mean(E_outmat))./(std(E_outmat));
@@ -22,7 +23,17 @@ plot(explained);
 % hold off;
 % 
 % % Reducing to order 2
-% scatter1= biplot(coefs(:, 1:2),'scores',score(:,1:2),'varlabels',vbls,'MarkerSize',13);
+scatter3(score(:,1), score(:,2), score(:,3), E_labels)
+
+
+clr = [1 0 0; 0 1 0; 0 0 1; 1 1 0; 1 0 1; 0 0 0];
+
+figure()
+
+for i=0:10:50
+    scatter3(score(i+1:i+10,1),score(i+1:i+10,2),score(i+1:i+10,3),30,clr(i/10+1, :), 'filled')
+    hold on;
+end
 % 
 % subplot(3,1,1);
 % s = scatter(score(:, 1), 0, 30, 'b','+', 'MarkerFaceAlpha', 0.5);
@@ -37,5 +48,5 @@ plot(explained);
 % 
 % scatter(score(:, 3), 0, 30, '+','b', 'MarkerFaceAlpha', 0.5);
 % title("Scores for Principal Component 3")
-% 
+
 % explained

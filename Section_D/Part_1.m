@@ -28,7 +28,7 @@ K=1+r(1,1); %get the optimal number of clusters
 [IDX,C,SUMD]=kmeans(X,K); %now rerun one last time with the optimal number of clusters
 C=C.*(MAX-MIN)+MIN;
 
-
+plot(D)
 
 % opts = statset('Display','final');
 % [idx,C] = kmeans(PVT_outmat(:, 1:3),6,'Replicates',5,'Options',opts);

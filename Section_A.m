@@ -1,6 +1,6 @@
-acr = importdata('.\PR_CW_DATA_2021\acrylic_211_01_HOLD.mat');
-foam = importdata('.\PR_CW_DATA_2021\black_foam_110_03_HOLD.mat');
-flour = importdata('.\PR_CW_DATA_2021\flour_sack_410_02_HOLD.mat');
+acr = importdata('./PR_CW_DATA_2021/acrylic_211_01_HOLD.mat');
+foam = importdata('./PR_CW_DATA_2021/black_foam_110_03_HOLD.mat');
+flour = importdata('./PR_CW_DATA_2021/flour_sack_410_02_HOLD.mat');
 
 
 
@@ -12,7 +12,7 @@ sep_idx = 70;
 
 PVT_outmat = [];
 E_outmat = [];
-myDir = '.\PR_CW_DATA_2021\'; %gets directory
+myDir = './PR_CW_DATA_2021/'; %gets directory
 myFiles = dir(fullfile(myDir,'*.mat')); %gets all wav files in struct
 
 names = ['acrylic', 'foam', 'car sponge', 'flour', 'kitchen sponge', 'steel vase'];
@@ -25,16 +25,18 @@ for k = 1:length(myFiles)
 %   fprintf(1, 'Now reading %s\n', fullFileName);
   curfile = importdata(fullFileName);
   PVT_outmat = [PVT_outmat; curfile.F1pdc(sep_idx) curfile.F1pac(2, sep_idx) curfile.F1tdc(sep_idx)];
-  E_outmat = [E_outmat; curfile.F1Electrodes(:, sep_idx)];
+  E_outmat = [E_outmat curfile.F1Electrodes(:, sep_idx)];
   
   %[wavData, Fs] = wavread(fullFileName);
   % all of your actions for filtering and plotting go here
 end
+E_outmat = E_outmat';
 PVT_outmat = [PVT_outmat repelem(labels,[10],[1])];
-E_outmat = [E_outmat repelem(labels,[190],[1])];
 
 save('F1_PVT.mat','PVT_outmat');
 save('F1_E.mat','E_outmat');
+E_labels = repelem(labels,[10],[1]);
+save('F1_E_labels.mat', 'E_labels');
 
 clr = [1 0 0; 0 1 0; 0 0 1; 1 1 0; 1 0 1; 0 0 0];
 
