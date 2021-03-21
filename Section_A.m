@@ -17,7 +17,7 @@ myFiles = dir(fullfile(myDir,'*.mat')); %gets all wav files in struct
 
 names = ['acrylic', 'foam', 'car sponge', 'flour', 'kitchen sponge', 'steel vase'];
 labels = [1;2;3;4;5;6];
-classes = repelem(labels,[10],[1]);
+% classes = repelem(labels,[10],[1]);
 
 for k = 1:length(myFiles)
   baseFileName = myFiles(k).name;
@@ -30,8 +30,8 @@ for k = 1:length(myFiles)
   %[wavData, Fs] = wavread(fullFileName);
   % all of your actions for filtering and plotting go here
 end
-PVT_outmat = [PVT_outmat classes];
-E_outmat = [E_outmat classes];
+PVT_outmat = [PVT_outmat repelem(labels,[10],[1])];
+E_outmat = [E_outmat repelem(labels,[190],[1])];
 
 save('F1_PVT.mat','PVT_outmat');
 save('F1_E.mat','E_outmat');
