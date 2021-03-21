@@ -7,13 +7,13 @@ classes = F1_PVT(11:30, 4);
 clr = [1 0 0; 0 1 0; 0 0 1; 1 1 0; 1 0 1; 0 0 0];
 
 figure()
-lda(PV, classes,clr,'PV data and separation', 1000,1200,2000,2100);
+2dlda(PV, classes,clr,'PV data and separation', 1000,1200,2000,2100);
 figure()
-lda(PT, classes,clr,'PT data and separation', 1000,1200,1900,2000);
+2dlda(PT, classes,clr,'PT data and separation', 1000,1200,1900,2000);
 figure()
-lda(TV, classes,clr,'TV data and separation', 1900,2000,2000,2100);
+2dlda(TV, classes,clr,'TV data and separation', 1900,2000,2000,2100);
     
-function lda(in, classes, clr, tit, xmin, xmax, ymin, ymax)
+function _2dlda(in, classes, clr, tit, xmin, xmax, ymin, ymax)
     [X,Y] = meshgrid(linspace(xmin,xmax),linspace(ymin,ymax));
     X = X(:); Y = Y(:);
     [C,err,P,logp,coeff] = classify([X Y],in,...

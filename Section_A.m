@@ -15,6 +15,9 @@ E_outmat = [];
 myDir = '.\PR_CW_DATA_2021\'; %gets directory
 myFiles = dir(fullfile(myDir,'*.mat')); %gets all wav files in struct
 
+names = ['acrylic', 'foam', 'car sponge', 'flour', 'kitchen sponge', 'steel vase'];
+labels = [1;2;3;4;5;6];
+classes = repelem(labels,[10],[1]);
 
 for k = 1:length(myFiles)
   baseFileName = myFiles(k).name;
@@ -22,16 +25,21 @@ for k = 1:length(myFiles)
 %   fprintf(1, 'Now reading %s\n', fullFileName);
   curfile = importdata(fullFileName);
   PVT_outmat = [PVT_outmat; curfile.F1pdc(sep_idx) curfile.F1pac(2, sep_idx) curfile.F1tdc(sep_idx)];
-  E_outmat = [E_outmat; curfile.F1Electrodes(2, sep_idx)];
+  E_outmat = [E_outmat; curfile.F1Electrodes(:, sep_idx)];
   
   %[wavData, Fs] = wavread(fullFileName);
   % all of your actions for filtering and plotting go here
 end
+PVT_outmat = [PVT_outmat classes];
+E_outmat = [E_outmat classes];
 
 save('F1_PVT.mat','PVT_outmat');
 save('F1_E.mat','E_outmat');
 
 clr = [1 0 0; 0 1 0; 0 0 1; 1 1 0; 1 0 1; 0 0 0];
+
+
+cls_col = PVT_outmat(:,4); 
 
 
 figure()
