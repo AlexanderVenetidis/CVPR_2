@@ -9,6 +9,7 @@ vbls = {'pressure', 'vibration', 'temperature'};
 [coefs, score, latent,tsquared,explained] = pca(E_norm);
 
 plot(explained);
+
 % 
 % % biplot(V, 'Scores', D);
 % 
@@ -49,3 +50,8 @@ end
 % title("Scores for Principal Component 3")
 
 % explained
+
+
+PCA_out = [score E_labels];
+
+save('E_PCA.mat','PCA_out');

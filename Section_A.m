@@ -4,9 +4,9 @@ flour = importdata('./PR_CW_DATA_2021/flour_sack_410_02_HOLD.mat');
 
 
 
-% PVTE_plt(acr, 'Acrylic');
-% PVTE_plt(foam, 'Black Foam');
-% PVTE_plt(flour, 'Flour sack'); %use timestep sep_idx, good way after the robot has grasped it
+PVTE_plt(acr, 'Acrylic');
+PVTE_plt(foam, 'Black Foam');
+PVTE_plt(flour, 'Flour sack'); %use timestep sep_idx, good way after the robot has grasped it
 
 sep_idx = 70;
 
