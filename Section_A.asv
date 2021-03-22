@@ -4,7 +4,7 @@ flour = importdata('./PR_CW_DATA_2021/flour_sack_410_02_HOLD.mat');
 
 
 
-PVTE_plt({acr, 'Acrylic';foam, 'Black foam';flour, 'Flour sack'}, 'PVTE for different objects, using electrode 2');
+PVTE_plt({acr, 'Acrylic';foam, 'Black Foam';flour, 'Flour sack'});
 
 % PVTE_plt({});
 % PVTE_plt({flour, 'Flour sack'}); %use timestep sep_idx, good way after the robot has grasped it
@@ -62,39 +62,29 @@ title('PVT plot at timestep 35');
 
 
 
-function plt = PVTE_plt(some_mat, tit)
+function plt = PVTE_plt(some_mat)
     for i=1:size(some_mat,1)  
         A = some_mat{i,1};
+        str = some_mat{i,2};
         
-        
-        figure(1)
-        ax1 = subplot(2,2,1);
-        plot(ax1, A.F1pdc, 'Tag', 'tl')
-        hold on;
+        figure()
+        subplot(2,2,1)
+        plot(A.F1pdc, 'Tag', 'tr')
         title('Pressure')
 
-        ax2 = subplot(2,2,2);
-        plot(ax2, A.F1pac(2, :),'Tag','tr')
-        hold on;
+        subplot(2,2,2)
+        plot(A.F1pac(2, :), "ta)
         title('Vibration')
 
-        ax3 = subplot(2,2,3);
-        plot(ax3, A.F1tdc, 'Tag', 'bl')
-        hold on;
+        subplot(2,2,3)
+        plot(A.F1tdc)
         title('Temperature')
 
-        ax4 = subplot(2,2,4);
-        plot(ax4, A.F1Electrodes(2, :)' , 'Tag', 'br')
-        hold on;
+        subplot(2,2,4)
+        plot(A.F1Electrodes(:, :))
         title('Electrode Impedance')
-        
-        
+
+        sgtitle(str) 
         hold on;
     end
-
-    legend(ax1, some_mat{:,2});
-    sgtitle(tit);
-
-    
-    
 end
