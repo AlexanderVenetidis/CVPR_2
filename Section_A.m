@@ -4,7 +4,7 @@ flour = importdata('./PR_CW_DATA_2021/flour_sack_410_02_HOLD.mat');
 
 
 
-PVTE_plt({acr, 'Acrylic';foam, 'Black foam';flour, 'Flour sack'}, 'PVTE for different objects, using electrode 2');
+PVTE_plt({acr, 'Acrylic';foam, 'Black foam';flour, 'Flour sack'});
 
 % PVTE_plt({});
 % PVTE_plt({flour, 'Flour sack'}); %use timestep sep_idx, good way after the robot has grasped it
@@ -50,19 +50,20 @@ figure()
 for i=0:10:50
     scatter3(PVT_outmat(i+1:i+10,1),PVT_outmat(i+1:i+10,2),PVT_outmat(i+1:i+10,3),30,clr(i/10+1, :), 'filled');
 %     scatter(PVT_outmat(i+1:i+10,1),PVT_outmat(i+1:i+10,3),30,clr(i/10+1, :), 'filled');
+    set(gca,'fontsize',17)
     hold on;
 end
 legend('acrylic', 'foam', 'car sponge', 'flour', 'kitchen sponge', 'steel vase' );
-xlabel('Pressure');
-ylabel('Vibration');
-zlabel('Temperature');
-title('PVT plot at timestep 35');
+xlabel('Pressure','Fontsize',17);
+ylabel('Vibration','Fontsize',17);
+zlabel('Temperature','Fontsize',17);
+title('PVT plot at timestep 35','Fontsize',22);
 
 
 
 
 
-function plt = PVTE_plt(some_mat, tit)
+function plt = PVTE_plt(some_mat)
     for i=1:size(some_mat,1)  
         A = some_mat{i,1};
         
@@ -71,29 +72,33 @@ function plt = PVTE_plt(some_mat, tit)
         ax1 = subplot(2,2,1);
         plot(ax1, A.F1pdc, 'Tag', 'tl')
         hold on;
-        title('Pressure')
+        title('Pressure','Fontsize',32)
+        set(gca,'fontsize',22)
 
         ax2 = subplot(2,2,2);
         plot(ax2, A.F1pac(2, :),'Tag','tr')
         hold on;
-        title('Vibration')
+        title('Vibration','Fontsize',32)
+        set(gca,'fontsize',22)
 
         ax3 = subplot(2,2,3);
         plot(ax3, A.F1tdc, 'Tag', 'bl')
         hold on;
-        title('Temperature')
+        title('Temperature','Fontsize',32)
+        set(gca,'fontsize',22)
 
         ax4 = subplot(2,2,4);
         plot(ax4, A.F1Electrodes(2, :)' , 'Tag', 'br')
         hold on;
-        title('Electrode Impedance')
+        title('Electrode Impedance','Fontsize',32)
+        set(gca,'fontsize',22)
         
         
         hold on;
     end
 
     legend(ax1, some_mat{:,2});
-    sgtitle(tit);
+%     sgtitle(tit);
 
     
     
