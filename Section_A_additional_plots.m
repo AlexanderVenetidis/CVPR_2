@@ -1,3 +1,7 @@
+acr = importdata('./PR_CW_DATA_2021/acrylic_211_01_HOLD.mat');
+foam = importdata('./PR_CW_DATA_2021/black_foam_110_03_HOLD.mat');
+flour = importdata('./PR_CW_DATA_2021/flour_sack_410_02_HOLD.mat');
+
 acr_files = dir(fullfile('./PR_CW_DATA_2021/','acrylic*.mat'));
 foam_files = dir(fullfile('./PR_CW_DATA_2021/','black_foam*.mat'));
 flour_files = dir(fullfile('./PR_CW_DATA_2021/','flour*.mat'));
@@ -6,47 +10,13 @@ flour_files = dir(fullfile('./PR_CW_DATA_2021/','flour*.mat'));
 [data_p_foam, data_v_foam, data_t_foam, data_e_foam] = parse_timeseries(foam_files);
 [data_p_flour, data_v_flour, data_t_flour, data_e_flour] = parse_timeseries(acr_files);
 
-figure()
-subplot(2,2,1)
-hold on;
-stdshade(data_p_acr, 'r'); hold on;
-stdshade(data_p_acr, 'r'); hold on;
-stdshade(data_p_foam, 'b'); hold on;
-stdshade(data_p_flour, 'g'); hold on;
-title('Pressure')
 
-subplot(2,2,2)
-hold on;
-stdshade(data_v_acr, 'r');  hold on;
-stdshade(data_v_acr, 'r');  hold on;
-stdshade(data_v_foam, 'b'); hold on;
-stdshade(data_v_flour, 'g'); hold on;
-title('Vibration')
-
-subplot(2,2,3)
-hold on;
-stdshade(data_t_acr, 'r');   hold on;
-stdshade(data_t_acr, 'r');  hold on;
-% stdshade(data_t_foam, 'b'); hold on;
-stdshade(data_t_flour, 'g'); hold on;
-title('Temperature')
-
-subplot(2,2,4)
-hold on;
-stdshade(data_e_acr, 'r'); 
-stdshade(data_e_foam, 'b'); hold on;
-stdshade(data_e_flour, 'g'); hold off;
-title('Electrode Impedance')
-
-% 
-% PVTE_plt(data_p_acr, data_v_acr, data_t_acr, data_e_acr, 'Acrylic');
-% PVTE_plt(data_p_foam, data_v_foam, data_t_foam, data_e_foam, 'Foam');
-% PVTE_plt(data_p_flour, data_v_flour, data_t_flour, data_e_flour, 'Flour');
+PVTE_plt(data_p_acr, data_v_acr, data_t_acr, data_e_acr, 'Acrylic');
+PVTE_plt(data_p_foam, data_v_foam, data_t_foam, data_e_foam, 'Foam');
+PVTE_plt(data_p_flour, data_v_flour, data_t_flour, data_e_flour, 'Flour');
 
 % PVTE_plt(foam, 'Black Foam');
 % PVTE_plt(flour, 'Flour sack'); %use timestep sep_idx, good way after the robot has grasped it
-figure();
-plot(data_p_flour');
 
 
 function plt = PVTE_plt(data_p, data_v, data_t, data_e, str)
@@ -54,18 +24,22 @@ function plt = PVTE_plt(data_p, data_v, data_t, data_e, str)
     subplot(2,2,1)
     stdshade(data_p)
     title('Pressure')
+    xlabel('Timestep')
 
     subplot(2,2,2)
     stdshade(data_v)
     title('Vibration')
+    xlabel('Timestep')
 
     subplot(2,2,3)
     stdshade(data_t)
     title('Temperature')
+    xlabel('Timestep')
 
     subplot(2,2,4)
     stdshade(data_e)
     title('Electrode Impedance')
+    xlabel('Timestep')
     
     sgtitle(str) 
 end
@@ -79,7 +53,7 @@ function [data_p, data_v, data_t, data_e] = parse_timeseries(dirs)
       baseFileName = dirs(k).name;
       fullFileName = fullfile('./PR_CW_DATA_2021/', baseFileName);
 
-      curfile = importdata(fullFileName);
+      curfile = importdata(fullFileName)
       data_p = [data_p; curfile.F1pdc(1, 1:1000)];
       data_v = [data_p; curfile.F1pac(2, 1:1000)];
       data_t = [data_p; curfile.F1tdc(1, 1:1000)];
@@ -137,7 +111,7 @@ if smth > 1
 end
 astd = nanstd(amatrix,[],1); % to get std shading
 % astd = nanstd(amatrix,[],1)/sqrt(size(amatrix,1)); % to get sem shading
-fillOut = fill([F fliplr(F)],[amean+astd fliplr(amean-astd)],acolor, 'FaceAlpha', 0,'linestyle','none');
+fillOut = fill([F fliplr(F)],[amean+astd fliplr(amean-astd)],acolor, 'FaceAlpha', 0.2,'linestyle','none');
 
 if ishold==0
     check=true; else check=false;
@@ -158,5 +132,3 @@ dataEnd = dataEnd(end:-2:1) ./ (fWidth-2:-2:1);
 dataOut = conv(dataIn,ones(fWidth,1)/fWidth,'full');
 dataOut = [dataStart,dataOut(fWidth:end-fWidth+1),dataEnd];
 end
-
-

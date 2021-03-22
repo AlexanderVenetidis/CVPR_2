@@ -8,14 +8,14 @@ PVT = F1_PVT(11:30,1:3);
 classes = F1_PVT(11:30, 4);
 clr = [1 0 0; 0 1 0; 0 0 1; 1 1 0; 1 0 1; 0 0 0];
 
-% figure()
-% lda(PV, classes,clr,'PV data and separation - Foam/Car sponge','Pressure', 'Vibration','foam', 'car sponge', 1000,1200,2000,2100);
-% figure()
-% lda(PT, classes,clr,'PT data and separation - Foam/Car sponge','Pressure', 'Temperature','foam', 'car sponge', 1000,1200,1900,2000);
-% figure()
-% lda(TV, classes,clr,'TV data and separation - Foam/Car sponge','Temperature','Vibration','foam', 'car sponge', 1900,2000,2000,2100);
-% figure()
-% lda3d(PVT, classes,clr,'PVT data and separation - Foam/Car sponge','foam', 'car sponge', 1900,2000,2000,2100,1900,2000);
+figure()
+lda(PV, classes,clr,'PV data and separation - Foam/Car sponge','Pressure', 'Vibration','foam', 'car sponge', 1000,1250,2000,2100);
+figure()
+lda(PT, classes,clr,'PT data and separation - Foam/Car sponge','Pressure', 'Temperature','foam', 'car sponge', 1000,1250,1900,2000);
+figure()
+lda(TV, classes,clr,'TV data and separation - Foam/Car sponge','Temperature','Vibration','foam', 'car sponge', 1900,2000,2000,2100);
+figure()
+lda3d(PVT, classes,clr,'PVT data and separation - Foam/Car sponge','foam', 'car sponge', 1900,2000,2000,2100,1900,2000);
 
 
 %Using data for acrylic and steel vase 
@@ -25,18 +25,18 @@ TV = F1_PVT([1:10 51:60],[3 2]);
 PVT = F1_PVT([1:10 51:60],1:3);
 classes = F1_PVT([1:10 51:60], 4);
 
-figure()
-lda(PV, classes,clr,'PV data and separation - Acrylic/Steel vase',...
-    'Pressure', 'Vibration','acrylic vase','steel', 1150,1350,2000,2100);
-figure()
-lda(PT, classes,clr,'PT data and separation - Acrylic/Steel vase',...
-    'Pressure', 'Temperature','acrylic vase','steel', 1150,1350,1900,2000);
-figure()
-lda(TV, classes,clr,'TV data and separation - Acrylic/Steel vase',...
-    'Temperature','Vibration','acrylic vase','steel', 1900,2000,2000,2100);
-figure()
-lda3d(PVT, classes,clr,'PVT data and separation - Acrylic/Steel vase',...
-    'acrylic vase','steel',1900,2000,2000,2100,1900,2000);
+% figure()
+% lda(PV, classes,clr,'PV data and separation - Acrylic/Steel vase',...
+%     'Pressure', 'Vibration','acrylic vase','steel', 1150,1350,2000,2100);
+% figure()
+% lda(PT, classes,clr,'PT data and separation - Acrylic/Steel vase',...
+%     'Pressure', 'Temperature','acrylic vase','steel', 1150,1350,1900,2000);
+% figure()
+% lda(TV, classes,clr,'TV data and separation - Acrylic/Steel vase',...
+%     'Temperature','Vibration','acrylic vase','steel', 1900,2000,2000,2100);
+% figure()
+% lda3d(PVT, classes,clr,'PVT data and separation - Acrylic/Steel vase',...
+%     'acrylic vase','steel',1900,2000,2000,2100,1900,2000);
 
 
 
