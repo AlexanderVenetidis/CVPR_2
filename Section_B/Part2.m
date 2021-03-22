@@ -1,3 +1,4 @@
+load("F1_E.mat");
 load("F1_E_labels.mat");
 
 % Normalize
@@ -50,3 +51,8 @@ end
 % title("Scores for Principal Component 3")
 
 % explained
+
+
+PCA_out = [score E_labels];
+
+save('E_PCA.mat','PCA_out');
