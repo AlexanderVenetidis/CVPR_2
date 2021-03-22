@@ -2,11 +2,20 @@ acr = importdata('./PR_CW_DATA_2021/acrylic_211_01_HOLD.mat');
 foam = importdata('./PR_CW_DATA_2021/black_foam_110_03_HOLD.mat');
 flour = importdata('./PR_CW_DATA_2021/flour_sack_410_02_HOLD.mat');
 
+acr_files = dir(fullfile('./PR_CW_DATA_2021/','acrylic*.mat'));
+foam_files = dir(fullfile('./PR_CW_DATA_2021/','black*.mat'));
+flour_files = dir(fullfile('./PR_CW_DATA_2021/','flour*.mat'));
+
+[data_p_acr, data_v_acr, data_t_acr, data_e_acr] = parse_timeseries(acr_files);
+
+
+
 PVTE_plt(acr, 'Acrylic');
+
 PVTE_plt(foam, 'Black Foam');
 PVTE_plt(flour, 'Flour sack'); %use timestep sep_idx, good way after the robot has grasped it
 
-sep_idx = 35;
+sep_idx = 70;
 
 PVT_outmat = [];
 E_outmat = [];
@@ -54,28 +63,44 @@ zlabel('Temperature');
 
 
 
+function [data_p, data_v, data_t, data_e] = parse_timeseries(dirs)
+    data_p = [];
+    data_v = [];
+    data_t = [];
+    data_e = [];
+    for k = 1:length(dirs)
+      baseFileName = dirs(k).name;
+      fullFileName = fullfile('./PR_CW_DATA_2021/', baseFileName);
 
-
-function plt = PVTE_plt(A, str)
-    figure()
-    subplot(2,2,1)
-    plot(A.F1pdc)
-    title('Pressure')
-
-    subplot(2,2,2)
-    plot(A.F1pac(2, :))
-    title('Vibration')
-
-    subplot(2,2,3)
-    plot(A.F1tdc)
-    title('Temperature')
-
-    subplot(2,2,4)
-    plot(A.F1Electrodes(2, :))
-    title('Electrode Impedance')
-    
-    sgtitle(str) 
+      curfile = importdata(fullFileName);
+      data_p = [data_p; curfile.F1pdc];
+      data_v = [data_p; curfile.F1pac(2, :)];
+      data_t = [data_p; curfile.F1tdc];
+      data_e = [data_e; curfile.F1Electrodes(2, :)];
+    end
 end
+
+% 
+% function plt = PVTE_plt(A, str)
+%     figure()
+%     subplot(2,2,1)
+%     plot(A.F1pdc)
+%     title('Pressure')
+% 
+%     subplot(2,2,2)
+%     plot(A.F1pac(2, :))
+%     title('Vibration')
+% 
+%     subplot(2,2,3)
+%     plot(A.F1tdc)
+%     title('Temperature')
+% 
+%     subplot(2,2,4)
+%     plot(A.F1Electrodes(2, :))
+%     title('Electrode Impedance')
+%     
+%     sgtitle(str) 
+% end
 
 
 function [lineOut, fillOut] = stdshade(amatrix,alpha,acolor,F,smth)

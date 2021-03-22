@@ -8,7 +8,7 @@ ToTest=15;
 Cutoff=0.95;
 Repeats=3;
 %unit-normalize
-MIN=min(X); MAX=max(X); 
+MIN=min(X); MAX=max(X);
 X=(X-MIN)./(MAX-MIN);
 D=zeros(ToTest,1); %initialize the results matrix
 for c=1:ToTest %for each sample
@@ -30,16 +30,16 @@ C=C.*(MAX-MIN)+MIN;
 
 plot(D)
 
-% opts = statset('Display','final');
-% [idx,C] = kmeans(PVT_outmat(:, 1:3),6,'Replicates',5,'Options',opts);
-% 
-% 
-% 
-% figure;
-% subplot(1,2,1);
-% 
-% scatter3(PVT_outmat(:,1), PVT_outmat(:,2), PVT_outmat(:,3), 15, idx, 'filled');
-% 
-% subplot(1,2,2);
-% 
-% scatter3(PVT_outmat(:,1), PVT_outmat(:,2), PVT_outmat(:,3), 15, PVT_outmat(:,4), 'filled');
+opts = statset('Display','final');
+[idx,C] = kmeans(PVT_outmat(:, 1:3),6,'Replicates',5,'Options',opts);
+[idx_cb,C] = kmeans(PVT_outmat(:, 1:3),6,'Distance','cityblock','Replicates',5,'Options',opts);
+
+
+figure;
+subplot(1,2,1);
+
+scatter3(PVT_outmat(:,1), PVT_outmat(:,2), PVT_outmat(:,3), 15, idx, 'filled');
+
+subplot(1,2,2);
+
+scatter3(PVT_outmat(:,1), PVT_outmat(:,2), PVT_outmat(:,3), 15, idx_cb, 'filled');
