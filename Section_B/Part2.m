@@ -23,7 +23,6 @@ plot(explained);
 % hold off;
 % 
 % % Reducing to order 2
-scatter3(score(:,1), score(:,2), score(:,3), E_labels)
 
 
 clr = [1 0 0; 0 1 0; 0 0 1; 1 1 0; 1 0 1; 0 0 0];
