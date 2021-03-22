@@ -1,4 +1,6 @@
-F1_PVT = load('.\F1_PVT.mat').PVT_outmat  ;
+load('.\F1_PVT.mat');
+
+F1_PVT = PVT_outmat;
 
 %Using data for black foam and sponge 
 PV = F1_PVT(11:30 ,[1 2]);
@@ -25,18 +27,18 @@ TV = F1_PVT([1:10 51:60],[3 2]);
 PVT = F1_PVT([1:10 51:60],1:3);
 classes = F1_PVT([1:10 51:60], 4);
 
-% figure()
-% lda(PV, classes,clr,'PV data and separation - Acrylic/Steel vase',...
-%     'Pressure', 'Vibration','acrylic vase','steel', 1150,1350,2000,2100);
-% figure()
-% lda(PT, classes,clr,'PT data and separation - Acrylic/Steel vase',...
-%     'Pressure', 'Temperature','acrylic vase','steel', 1150,1350,1900,2000);
-% figure()
-% lda(TV, classes,clr,'TV data and separation - Acrylic/Steel vase',...
-%     'Temperature','Vibration','acrylic vase','steel', 1900,2000,2000,2100);
-% figure()
-% lda3d(PVT, classes,clr,'PVT data and separation - Acrylic/Steel vase',...
-%     'acrylic vase','steel',1900,2000,2000,2100,1900,2000);
+figure()
+lda(PV, classes,clr,'PV data and separation - Acrylic/Steel vase',...
+    'Pressure', 'Vibration','acrylic vase','steel', 1150,1350,2000,2100);
+figure()
+lda(PT, classes,clr,'PT data and separation - Acrylic/Steel vase',...
+    'Pressure', 'Temperature','acrylic vase','steel', 1150,1350,1900,2000);
+figure()
+lda(TV, classes,clr,'TV data and separation - Acrylic/Steel vase',...
+    'Temperature','Vibration','acrylic vase','steel', 1900,2000,2000,2100);
+figure()
+lda3d(PVT, classes,clr,'PVT data and separation - Acrylic/Steel vase',...
+    'acrylic vase','steel',1900,2000,2000,2100,1900,2000);
 
 
 
@@ -54,7 +56,8 @@ function lda(in, classes, clr, tit,xname, yname,obj1, obj2, xmin, xmax, ymin, ym
     end
     legend(obj1,obj2);
     
-    title(tit);
+    set(gca,'fontsize',17)
+    title(tit,'Fontsize',18);
 
 
     gscatter(X,Y,C,'rb','.',1,'off');
@@ -66,8 +69,8 @@ function lda(in, classes, clr, tit,xname, yname,obj1, obj2, xmin, xmax, ymin, ym
     h2 = fimplicit(f);
     set(h2,'Color','m','LineWidth',2,'DisplayName','Decision Boundary');
     hold on;
-    xlabel(xname);
-    ylabel(yname);
+    xlabel(xname,'Fontsize',17);
+    ylabel(yname,'Fontsize',17);
     
     
 end
@@ -85,10 +88,11 @@ function lda3d(in, classes, clr, tit,obj1,obj2, xmin, xmax, ymin, ymax, zmin, zm
         hold on;
     end
     legend(obj1,obj2);
-    xlabel('Pressure');
-    ylabel('Vibration');
-    zlabel('Temperature');
-    title(tit);
+    xlabel('Pressure','Fontsize',17);
+    ylabel('Vibration','Fontsize',17);
+    zlabel('Temperature','Fontsize',17);
+    set(gca,'fontsize',17)
+    title(tit,'Fontsize',22);
 
 %     gscatter3b(X,Y,Z,C,'rb','.',1,'off');
     K = coeff(1,2).const;

@@ -11,40 +11,40 @@ Y_train = cellstr(num2str(shuffled_PCA(1:36,20)));
 X_test = shuffled_PCA(37:end,1:3);
 Y_test = cellstr(num2str(shuffled_PCA(37:end,20)));
 
-% t = templateTree('Reproducible',true);  % For reproducibility of random predictor selections
-% tree_model = fitcensemble(X_train,Y_train,'Method','Bag','NumLearningCycles',200,'Learners',t)
-% 
-% figure
-% plot(loss(tree_model,X_test,Y_test,'mode','cumulative'))
-% xlabel('Number of trees')
-% ylabel('Test classification error')
-% title('Test set error vs number of trees');
 
-% tree_model = TreeBagger(150,array2table(X_train),Y_train,'Method','Classification','OOBPredictorImportance','On');
+tree_model = TreeBagger(100,array2table(X_train),Y_train,'Method','Classification','OOBPredictorImportance','On');
 
 
-% figure
-% plot(oobError(tree_model))
-% xlabel('Number of Grown Trees')
-% ylabel('Out-of-Bag Mean Squared Error')
-% title('OOB Error vs Number of trees for RF model')
+figure
+plot(oobError(tree_model))
+xlabel('Number of Grown Trees')
+ylabel('Out-of-Bag Mean Squared Error')
+title('OOB Error vs Number of trees for RF model')
 
-% figure
-% bar(tree_model.OOBPermutedPredictorDeltaError)
-% xlabel('Feature Number') 
-% ylabel('Out-of-Bag Feature Importance')
-% title('OOB feature importance(PCA)');
 
-% view(tree_model.Trees{1},'mode','graph') % graphic description
-% view(tree_model.Trees{2},'mode','graph') % graphic description
+view(tree_model.Trees{1},'mode','graph') % graphic description
+view(tree_model.Trees{2},'mode','graph') % graphic description
 
 
 
-% Y_pred = predict(tree_model,X_test);
-% C = confusionmat(Y_test, Y_pred);
-% 
-% names = {'acrylic', 'foam', 'car sponge', 'flour', 'kitchen sponge', 'steel vase'};
-% C_tab = array2table(C, 'RowNames', names, 'VariableNames', names);
+Y_pred = predict(tree_model,X_test);
+C = confusionmat(Y_test, Y_pred);
+
+names = {'acrylic', 'foam', 'car sponge', 'flour', 'kitchen sponge', 'steel vase'};
+Conf_tab = array2table(C, 'RowNames', names, 'VariableNames', names);
+
+
+t = templateTree('Reproducible',true);  % For reproducibility of random predictor selections
+tree_model = fitcensemble(X_train,Y_train,'Method','Bag','NumLearningCycles',200,'Learners',t)
+
+figure
+plot(loss(tree_model,X_test,Y_test,'mode','cumulative'))
+xlabel('Number of trees')
+ylabel('Test classification error')
+title('Test set error vs number of trees');
+
+
+
 
 
 %repeating for non-pca data
@@ -79,4 +79,4 @@ Y_pred = predict(tree_model,X_test);
 C = confusionmat(Y_test, Y_pred);
 
 names = {'acrylic', 'foam', 'car sponge', 'flour', 'kitchen sponge', 'steel vase'};
-C_tab = array2table(C, 'RowNames', names, 'VariableNames', names);
+Conf_tab_Electrodes = array2table(C, 'RowNames', names, 'VariableNames', names);
